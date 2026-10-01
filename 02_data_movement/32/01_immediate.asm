@@ -1,4 +1,8 @@
 ; nasm -f elf32 01_immediate.asm && ld -m elf_i386 01_immediate.o && ./a.out
+; nasm -f elf32 01_immediate.asm    assemble
+; ld -m elf_i386 01_immediate.o     link 
+;./a.out run
+
 
 section .text
 global _start
@@ -12,3 +16,4 @@ _start:
 
     mov eax, 1
     int 0x80
+    
