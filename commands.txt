@@ -1,0 +1,116 @@
+    1  sudo apt update
+    2  sudo apt upgrade
+    3  Sudo apt install nasm
+    4  Sudo apt install gcc
+    5  Sudo apt install gdb
+    6  mkdir assemblylang
+    7  cd assemblylang
+    8  code .
+    9  code 
+   10  wsl --status
+   11  code
+   12  nasm -f elf32 01_immediate.asm
+   13  apt install nasm 
+   14  nasm -f elf32 01_immediate.asm
+   15  nasm -f elf32 01_immediate.asm 
+   16  cd 02_data_movement
+   17  nasm -f elf32 01_immediate.asm 
+   18  cd 32
+   19  nasm -f elf32 01_immediate.asm 
+   20  ld -m elf_i386 01_immediate.o 
+   21  ./a.out
+   22  gdb -silent a.out
+   23  apt install gdb
+   24  gdb -silent a.out
+   25  gdb - silent a.out 
+   26  gdb layout asm
+   27  lay 
+   28  gdb -silent a.out
+   29  pwd
+   30  cd 02_data_movement/
+   31  cd 64
+   32  nasm -f elf32 01_immediate.asm 
+   33  nasm -f elf64 01_immediate.asm
+   34  ld -m elf_i386 01_immediate.o
+   35  cd 03_arithmetic/add
+   36  nasm -f elf32 add1.asm -o add1.o
+   37  ld -m elf_i386 add1.o -o add1
+   38  gdb ./add1
+   39  nasm -f elf32 add2.asm -o add2.o
+   40  ld -m elf_i386 add2.o -o add2
+   41  gdb ./add2
+   42  cd ../sub
+   43  nasm -f elf32 sub1.asm -o sub1.o
+   44  ld -m elf_i386 sub1.o -o sub1
+   45  gdb ./sub1
+   46  nasm -f elf32 sub2.asm -o sub2.o
+   47  ld -m elf_i386 sub2.o -o sub2
+   48  gdb ./sub2
+   49  cd ../mul
+   50  nasm -f elf32 mul1.asm -o mul1.o
+   51  ld -m elf_i386 mul1.o -o mul1
+   52  gdb ./mul1
+   53  nasm -f elf32 mul2.asm -o mul2.o
+   54  ld -m elf_i386 mul2.o -o mul2
+   55  gdb ./mul2
+   56  cd ../div
+   57  nasm -f elf32 div1.asm -o div1.o
+   58  ld -m elf_i386 div1.o -o div1
+   59  gdb ./div1
+   60  nasm -f elf32 div2.asm -o div2.o
+   61  ld -m elf_i386 div2.o -o div2
+   62  gdb ./div2
+   63  cd 04_logic_and_conditions
+   64  nasm -f elf32 and.asm -o and.o
+   65  ./and
+   66  ld -m elf_i386 -o and and.o
+   67  ./and
+   68  echo $?
+   69  nasm -f elf32 not.asm -o not.o
+   70  ld -m elf_i386 -o not not.o
+   71  ./not
+   72  nasm -f elf32 or.asm -o or.o
+   73  ld -m elf_i386 -o or or.o
+   74  ./or
+   75  nasm -f elf32 xor.asm -o xor.o
+   76  ld -m elf_i386 -o xor xor.o
+   77  ./xor
+   78  nasm -f elf64 loop.asm -o loop.o
+   79  cd ..
+   80  cd 06_loop
+   81  nasm -f elf64 loop.asm -o loop.o
+   82  nasm -f elf64 01_loop_instruction.asm -o loop.o
+   83  nasm -f elf64 01_loop_instruction.asm -o 01_loop_instruction.o
+   84  ld -o 01_loop_instruction 01_loop_instruction.o
+   85  ./01_loop_instruction
+   86  nasm -f elf64 02_dec_jnz.asm -o 02_dec_jnz.o
+   87  ld -o 02_dec_jnz 02_dec_jnz.o
+   88  nasm -f elf64 04_while_loop.asm -o 04_while_loop.o
+   89  ld -o 04_while_loop 04_while_loop.o
+   90  ./04_while_loop
+   91  ./02_dec_jnz
+   92  nasm -f elf64 07_sum_loop.asm -o 07_sum_loop.o
+   93  ld -o 07_sum_loop 07_sum_loop.o
+   94  ./07_sum_loop
+   95  nasm -f elf64 08_infinite_loop.asm -o 08_infinite_loop.o
+   96  ld -o 08_infinite_loop 08_infinite_loop.o
+   97  ./08_infinite_loop
+   98  ./02_dec_jnz
+   99  nasm -f elf64 09_loop_syscall.asm -o 09_loop_syscall.o
+  100  ld -o 09_loop_syscall 09_loop_syscall.o
+  101  ./09_loop_syscall
+  102  ./04_while_loop
+  103  nasm -f elf64 03_cmp_jl.asm -o 03_cmp_jl.o
+  104  ld -o 03_cmp_jl 03_cmp_jl.o
+  105  ./03_cmp_jl
+  106  nasm -f elf64 05_do_while.asm -o 05_do_while.o
+  107  ld -o 05_do_while 05_do_while
+  108  ld -o 05_do_while 05_do_while.o
+  109  ./05_do_while
+  110  ld -o 06_push_pop 06_push_pop.o
+  111  ./06_push_pop
+  112  gdb
+  113  history
+  114  history>commands.txt
+  115  cd ..
+  116  history>commands.txt
