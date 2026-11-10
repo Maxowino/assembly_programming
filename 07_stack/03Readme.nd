@@ -1,0 +1,64 @@
+# 03.asm – CALL and RET Instructions
+
+This program demonstrates how CALL and RET use the stack when calling and returning from a function.
+
+### How the program works
+
+The program starts by placing 10 in RAX.
+
+  asm
+mov rax, 10
+call calculate
+
+
+The CALL instruction saves the return address on the stack and jumps to the `calculate` function. RSP decreases by 8 bytes.
+
+### Function execution
+
+   asm
+calculate:
+    add rax, 5
+    ret
+
+
+The function adds 5 to RAX, changing its value from 10 to 15.
+
+The RET instruction takes the saved return address from the stack and returns execution to `after_call`. RSP increases by 8 bytes, restoring it to its original position.
+
+### After the function returns
+
+The program reaches after_call. The NOP instruction does nothing, and RAX still contains 15.
+
+Finally, the program exits using the Linux exit system call.
+
+### RSP changes
+
+Assuming the initial RSP value is X:
+
+| Instruction | RSP |
+|---|---|
+| Program starts | X |
+| CALL calculate | X - 8 |
+| ADD RAX, 5 | X - 8 |
+| RET | X |
+| After return | X |
+
+### Observations
+
+- CALL pushes the return address onto the stack.
+- RSP decreases by 8 bytes during CALL.
+- The function changes RAX from 10 to 15.
+- RET retrieves the saved return address.
+- RSP increases by 8 bytes after RET.
+- The stack returns to its original position.
+- The program produces no screen output.
+
+### Registers used or changed
+
+- RAX initially contains 10.
+- RAX changes to 15 after the ADD instruction.
+- RAX is later changed to 60 for the exit system call.
+- RSP decreases by 8 bytes when CALL pushes the return address.
+- RSP increases by 8 bytes when RET retrieves the return address.
+- RDI is set to 0 to indicate successful program termination.
+

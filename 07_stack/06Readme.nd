@@ -1,0 +1,66 @@
+# 06.asm – PUSH and POP in 32-bit Assembly
+
+This program demonstrates how values are stored and retrieved from the stack using 32-bit registers.
+
+### How the program works
+
+The program starts by storing two hexadecimal values in EAX and EBX.
+
+mov eax, 0x11223344
+mov ebx, 0x1234
+
+
+The values are then pushed onto the stack.
+
+
+push eax
+push ebx
+
+
+First, the value in EAX is pushed, followed by the value in EBX. Each PUSH decreases ESP by 4 bytes because the program uses 32-bit registers.
+
+The NOP instruction does nothing and does not affect the stack.
+
+### Retrieving the values
+
+
+pop ebx
+pop eax
+
+
+The first POP retrieves `0x1234` into EBX. The second retrieves `0x11223344` into EAX.
+
+Each POP increases ESP by 4 bytes, returning it to its original position.
+
+### ESP changes
+
+Assuming the initial ESP value is X:
+
+| Instruction | ESP |
+|---|---|
+| Program starts | X |
+| PUSH EAX | X - 4 |
+| PUSH EBX | X - 8 |
+| NOP | X - 8 |
+| POP EBX | X - 4 |
+| POP EAX | X |
+
+### Observations
+
+- PUSH decreases ESP by 4 bytes in 32-bit mode.
+- POP increases ESP by 4 bytes.
+- The stack follows LIFO (Last In, First Out).
+- EBX is popped first because its value was pushed last.
+- Both registers regain their original values.
+- ESP returns to its original position after both POP operations.
+- The program produces no screen output and exits using `int 0x80`.
+
+### Registers changed
+
+- EAX initially contains `0x11223344`.
+- EBX initially contains `0x1234`.
+- EBX receives `0x1234` after POP EBX.
+- EAX receives `0x11223344` after POP EAX.
+- EAX is later changed to 1 for the 32-bit exit call.
+- EBX is set to 0 to indicate successful program termination.
+- ESP decreases during PUSH and increases during POP.

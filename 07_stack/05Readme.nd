@@ -1,0 +1,67 @@
+# 05.asm – Pushing and Popping Different Values
+
+This program demonstrates how 64-bit values are pushed onto and retrieved from the stack using PUSH and POP.
+
+### How the program works
+
+The program starts by storing two hexadecimal values in registers.
+
+
+mov rax, 0x1122334455667788
+mov rbx, 0x1234
+
+
+Next, both values are pushed onto the stack.
+
+
+push rax
+push rbx
+
+
+The first PUSH stores the value in RAX, and the second stores the value in RBX. Each PUSH decreases RSP by 8 bytes. The stack now has the RBX value at the top.
+
+The NOP instruction does nothing and does not affect the stack.
+
+### Retrieving the values
+
+
+pop rbx
+pop rax
+
+
+The first POP retrieves `0x1234` into RBX. The second retrieves `0x1122334455667788` into RAX.
+
+Each POP increases RSP by 8 bytes, returning it to its original position.
+
+### RSP changes
+
+Assuming the initial ValuE of RSP is Y:
+
+| Instruction | RSP |
+|---|---|
+| Program starts | Y |
+| PUSH RAX | Y - 8 |
+| PUSH RBX | Y - 16 |
+| NOP | Y - 16 |
+| POP RBX | Y - 8 |
+| POP RAX | Y |
+
+### Observations
+
+- PUSH decreases RSP by 8 bytes in 64-bit mode.
+- POP increases RSP by 8 bytes.
+- The stack follows LIFO (Last In, First Out).
+- RBX is popped first because its value was pushed last.
+- Both registers regain their original values.
+- RSP returns to its original position after both POP operations.
+- The program produces no screen output.
+
+### Register changes
+
+- RAX initially contains `0x1122334455667788`.
+- RBX initially contains `0x1234`.
+- RBX receives `0x1234` after POP RBX.
+- RAX receives `0x1122334455667788` after POP RAX.
+- RAX is later changed to 60 for the exit system call.
+- RDI is set to 0 to indicate successful program termination.
+- RSP decreases during PUSH and increases during POP.

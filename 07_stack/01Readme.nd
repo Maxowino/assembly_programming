@@ -1,0 +1,49 @@
+# 01.asm – Stack Operations
+
+This program demonstrates how PUSH and POP work using two values: 100 and 200.
+
+### How the program works
+
+The program starts by storing 100 in RAX and 200 in RBX.
+
+mov rax, 100
+mov rbx, 200
+
+
+The values are then pushed onto the stack.
+
+
+push rax
+push rbx
+
+100 is pushed first, followed by 200. Each PUSH decreases RSP by 8 bytes. The NOP instruction does nothing and does not affect the stack.
+
+The values are then retrieved using POP.
+
+
+pop rcx
+pop rdx
+
+
+200 is retrieved first into RCX, followed by 100 into RDX. Each POP increases RSP by 8 bytes.
+
+### RSP changes
+Assuming the initial RSP value is X
+| Instruction | RSP |
+|---|---|
+| Program starts | X|
+| PUSH RAX | X - 8 |
+| PUSH RBX | X - 16 |
+| POP RCX | X - 8 |
+| POP RDX | X |
+
+### Observations
+
+- PUSH decreases RSP by 8 bytes.
+- POP increases RSP by 8 bytes.
+- The stack follows LIFO (Last In, First Out).
+- RCX ends up with 200, while RDX contains 100
+- RBX remains 200.
+- RAX initially contains 100 but changes to 60 when the program prepares to exit
+- RSP returns to its original position after both POP operations.
+- The program produces no screen output because it only performs stack operations before exiting.

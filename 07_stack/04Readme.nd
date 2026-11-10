@@ -1,0 +1,89 @@
+# 04.asm – Stack Frame in 32-bit Assembly
+
+This program demonstrates how a function uses the stack to store local variables in 32-bit assembly.
+
+### How the program works
+
+The program starts by calling the `work` function.
+
+call work
+
+
+CALL saves the return address on the stack and jumps to `work`. ESP decreases by 4 bytes because this is a 32-bit program.
+
+### Creating the stack frame
+
+
+push ebp
+mov ebp, esp
+sub esp, 8
+
+
+- push ebp saves the previous base pointer and decreases ESP by 4 bytes.
+- mov ebp, esp sets EBP as the reference point for the stack frame.
+- sub esp, 8 reserves 8 bytes for two local variables.
+
+### Storing and retrieving values
+
+
+mov dword [ebp - 4], 100
+mov dword [ebp - 8], 200
+
+
+The program stores 100 and 200 in the reserved stack space.
+
+
+mov eax, [ebp - 4]
+mov ebx, [ebp - 8]
+
+
+The values are retrieved into EAX and EBX respectively. ESP does not change during these operations. NOP also has no effect on the stack.
+
+### Restoring the stack
+
+mov esp, ebp
+pop ebp
+ret
+
+
+- mov esp, ebp removes the space reserved for local variables.
+- pop ebp restores the previous base pointer and increases ESP by 4 bytes.
+- ret retrieves the return address and returns execution to the instruction after CALL. ESP increases by another 4 bytes.
+
+The program then exits using the Linux 32-bit exit system call (`int 0x80`).
+
+### ESP changes
+
+Assuming the initial ESP value is X:
+
+| Instruction | ESP |
+|---|---|
+| Program starts | X |
+| CALL work | X - 4 |
+| PUSH EBP | X- 8 |
+| MOV EBP, ESP | X - 8 |
+| SUB ESP, 8 | X - 16 |
+| Store and retrieve values | X - 16 |
+| MOV ESP, EBP | X - 8 |
+| POP EBP | X - 4 |
+| RET | X |
+
+### Observations
+
+- CALL saves the return address on the stack.
+- PUSH EBP saves the previous base pointer.
+- EBP is used to access local variables.
+- ESP decreases when space is reserved for local variables.
+- POP EBP restores the previous base pointer.
+- RET returns execution to the instruction after CALL.
+- ESP returns to its original position.
+- The program produces no screen output.
+
+### Registers changes
+
+- ESP changes as the function saves the return address, saves EBP, reserves local variable space and restores the stack.
+- EBP stores the base address of the function's stack frame and is restored before returning.
+- EAX receives the value 100 from `[ebp - 4]`.
+- EBX receives the value 200 from `[ebp - 8]`.
+- EAX is later changed to 1 for the 32-bit exit system call.
+- EBX is set to 0 to indicate successful program termination.

@@ -1,0 +1,88 @@
+# 02.asm – Stack Frame and Local Variables
+
+This program demonstrates how a function uses the stack to store local variables and how a stack frame is created and removed.
+
+### How the program works
+
+The program starts by calling the `work` function.
+
+call work
+
+
+The CALL instruction saves the return address on the stack and transfers execution to `work`. RSP decreases by 8 bytes.
+
+Inside `work`, the following instructions execute:
+
+
+push rbp
+mov rbp, rsp
+sub rsp, 16
+
+
+- `push rbp` saves the previous base pointer on the stack, decreasing RSP by 8 bytes.
+- `mov rbp, rsp` sets RBP as the reference point for the new stack frame.
+- `sub rsp, 16` reserves 16 bytes of space for local variables, moving RSP down by another 16 bytes.
+
+### Storing and accessing values
+
+
+mov qword [rbp - 8], 100
+mov qword [rbp - 16], 200
+
+
+The program stores 100 and 200 in the reserved stack space.
+
+
+mov rax, [rbp - 8]
+mov rbx, [rbp - 16]
+
+
+The values are retrieved from the stack into RAX and RBX. RSP does not change during these operations. The NOP instruction also has no effect on the stack.
+
+### Restoring the stack
+
+
+mov rsp, rbp
+pop rbp
+ret
+
+
+- `mov rsp, rbp` removes the space reserved for local variables.
+- `pop rbp` restores the previous base pointer and increases RSP by 8 bytes.
+- `ret` retrieves the saved return address and returns execution to the instruction after CALL. RSP increases by another 8 bytes.
+
+The program then exits using the Linux exit system call.
+
+### RSP changes
+
+RSP initial value is assumed to be R
+
+| Instruction | R |
+| Program starts | R |
+| CALL work |R - 8 |
+| PUSH RBP | R - 16 |
+| MOV RBP, RSP | R- 16 |
+| SUB RSP, 16 | R - 32 |
+| Store and retrieve values | R - 32 |
+| MOV RSP, RBP | R - 16 |
+| POP RBP | R - 8 |
+| RET | R |
+
+### Registers used or changed
+
+- RSP changes as the function saves the return address, saves RBP, reserves local variable space and restores the stack.
+- RBP stores the base address of the function's stack frame and is restored before returning.
+- RAX receives the value 100 from `[rbp - 8]`.
+- RBX receives the value 200 from `[rbp - 16]`.
+- RAX is later changed to 60 for the exit system call.
+- RDI is set to 0 to indicate successful program termination.
+
+### Observations
+- CALL automatically pushes the return address onto the stack.
+- PUSH RBP saves the previous base pointer.
+- RBP is used to access local variables at fixed offsets.
+- SUB RSP, 16 reserves space for two 8-byte values.
+- MOV RSP, RBP removes the reserved local variable space.
+- RET uses the saved return address to continue execution.
+- After the function returns, RSP is restored to its original position.
+- The program produces no screen output.
